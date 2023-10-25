@@ -23,13 +23,13 @@ const GetAll = async (req, res) => {
                 const item = {
                     id: index+1,
                     title: i.title,
-                    link: i.link,
-                    guid: i.guid,
-                    pubDate: i.pubDate,
-                    description: i.description,
-                    content: i['content:encoded'],
-                    guid: i.guid,
-                    categories: i.categories,
+                    // link: i.link,
+                    // guid: i.guid,
+                    // pubDate: i.pubDate,
+                    // description: i.description,
+                    // content: i['content:encoded'],
+                    // guid: i.guid,
+                    // categories: i.categories,
                 }
                 nuevo_items.push(item);
                 
@@ -67,7 +67,7 @@ const Create = async (req, res) => {
         const { title, link, guid, pubDate, description } = req.body;
         // buscar desde db.json el id
         // validar que dolo los campos requeridos esten llenos
-        if(isEmpty(title) || isEmpty(link) || isEmpty(guid) || isEmpty(pubDate) || isEmpty(description)){
+        if(isEmpty(title)){
             return res.status(400).json({ message: 'Todos los campos son requeridos' });
         }
 
@@ -77,10 +77,10 @@ const Create = async (req, res) => {
         const item = {
             id: items.length+1,
             title,
-            link,
-            guid,
-            pubDate,
-            description
+            // link,
+            // guid,
+            // pubDate,
+            // description
         }
         items.push(item);
         fs.writeFileSync('src/db/db.json', JSON.stringify(items));
@@ -95,7 +95,7 @@ const Update = async (req, res) => {
         const { id } = req.params;
         const { title, link, guid, pubDate, description } = req.body;
         // validar que dolo los campos requeridos esten llenos
-        if(isEmpty(title) || isEmpty(link) || isEmpty(guid) || isEmpty(pubDate) || isEmpty(description)){
+        if(isEmpty(title)){
             return res.status(400).json({ message: 'Todos los campos son requeridos para la actualizacion' });
         }
         // buscar desde db.json el id
@@ -106,10 +106,10 @@ const Update = async (req, res) => {
             const item = {
                 id,
                 title,
-                link,
-                guid,
-                pubDate,
-                description
+                // link,
+                // guid,
+                // pubDate,
+                // description
             }
             items[index] = item;
             fs.writeFileSync('src/db/db.json', JSON.stringify(items));
