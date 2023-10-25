@@ -4,6 +4,14 @@ const isEmpty = require('is-empty');
 
 const GetAll = async (req, res) => {
     try {
+
+        //  si no hay data en db.json
+        //  consultar a la api
+        const db = fs.readFileSync('src/db/db.json', { encoding: 'utf8' });
+        const items = JSON.parse(db);
+        if(items.length > 0){
+            return res.status(200).json(items);
+        }
         const { data, status } = await axios.get('https://www.ecuavisa.com/rss/portada.json');
         if(data){
             console.log(data.rss.channel);
